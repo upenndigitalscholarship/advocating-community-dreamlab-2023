@@ -136,7 +136,11 @@
     }
     /* function to add objects to map */
     function objectMarkers(feature,latlng) {
-        var marker = L.marker(latlng, {alt: feature.properties.title});
+        var marker = new L.CircleMarker(latlng, {
+            alt: feature.properties.title,
+            radius:3,
+            color:"red"
+        });
         {% if site.data.theme.map-cluster == true %}markers.addLayer(marker);{% endif %}
         return marker;
     }
