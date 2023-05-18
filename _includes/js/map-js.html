@@ -34,6 +34,15 @@
     }
 
     /* add map layer options */
+
+    //add during DreamLab day 3!
+    var Stamen_WaterColor = L.tileLayer("https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg", {
+    attribution: 'Map tiles by Stamen Design, under CC BY 3.0 Data by OpenStreetMap, under CC BY SA.'
+    });
+    //end of add during DreamLab day 3!
+
+
+
     var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
     });
@@ -134,13 +143,59 @@
         /* add object popup to map layer */
         layer.bindPopup(popupTemplate);
     }
+
+ //var to change icon - add during dreamLab!
+    var historicMarker = L.icon({
+        iconUrl:'../assets/img/historic_marker.png',
+        iconSize:[30,45],
+        iconAnchor:[10,30],
+        popupAnchor:[10,0]
+    });
+
+//function to change colors - add during dreamLab!
+    function getColor(feature){
+  switch (feature.properties["type_of_historic_resource"]) {
+            case 'school':
+              return  'orange';
+            case 'settlement house':
+              return 'green';
+            case 'church':
+              return 'blue';
+            case 'hotel':
+              return 'purple';
+            case 'theater':
+              return 'pink';
+            case 'cemetery':
+              return 'red';
+            case 'dwelling':
+              return 'brown';
+            case 'hall':
+              return 'lightblue';
+            case 'mosque':
+              return 'lavender';
+            case 'stadium':
+              return 'yellow';
+            default:
+              return 'black';
+          }
+        }
+
+
     /* function to add objects to map */
+
+    //custom ICON version:
     function objectMarkers(feature,latlng) {
-        var marker = new L.CircleMarker(latlng, {
+        var marker = new L.marker(latlng, {
+            icon: historicMarker,
             alt: feature.properties.title,
-            radius:3,
-            color:"red"
         });
+        //custom COLORING version:
+//       var marker = new L.CircleMarker(latlng, {
+//             radius: 3,
+//              color: getColor(feature),
+//             alt: feature.properties.title,
+//         });
+
         {% if site.data.theme.map-cluster == true %}markers.addLayer(marker);{% endif %}
         return marker;
     }
