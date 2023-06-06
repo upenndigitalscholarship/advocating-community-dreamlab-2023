@@ -2,6 +2,10 @@
 {% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
 {% assign icons = cb_icons.icons %}{%- endif -%}
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.latitude' -%}
+
+<!-- add during dreamlab day 3: -->
+<!-- {%- assign items = site.data[site.metadata] | where_exp: 'item','item.exhibits contains "MOVE"' -%}
+ -->
 {%- assign fields = site.data.config-map -%}
 <!-- load leaflet dependencies -->
 <script src="{{ '/assets/lib/leaflet/leaflet.js' | relative_url }}"></script>
